@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
+    <h1>Pokémon Quick Attack</h1>
+    <form action="/search_type" method="POST">
+        <button type="submit" name="search" value="pokemon">Pokémon</button>
+        <button type="submit" name="search" value="type">Type</button>
+    </form>
     {% block body %}{% endblock %}
 </body>
 </html>

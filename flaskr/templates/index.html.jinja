@@ -1,0 +1,11 @@
+{% extends 'base.html.jinja' %}
+
+{% block body %}
+
+{% if search == "POKEMON" %}
+{% include 'pokemon_display.html.jinja' %}
+{% else %}
+{% include 'type_display.html.jinja' %}
+{% endif %}
+
+{% endblock %}
