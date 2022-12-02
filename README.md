@@ -1,7 +1,7 @@
 # Pokémon Quick Attack
 
 Know a Pokémon's type strengths and weaknesses fast with this
-website that only shows you the information you need.
+site that only shows you the information you need.
 
 ## Dependencies
 * Python v3.6

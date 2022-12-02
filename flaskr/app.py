@@ -17,11 +17,9 @@ def change_search_type():
     global search
     # Prevents users from sending multiple requests that would cause an unneeded
     # re render. For instance, if the page is expecting a pokemon name, having
-    # the user accidentally repeatedly press the "pokemon" button will re render
-    # the page. The page should only be re rendered in this route if its changing
-    # the search type.
-    if (request.form.get('search') == 'pokemon' and (search is Search.POKEMON) or
-        request.form.get('search') == 'type' and (search is Search.TYPE)):
+    # the user repeatedly press the "pokemon" button will re render the page.
+    # The page should only be re rendered if its changing the search type.
+    if (request.form.get('search') == Search.enum_to_string(search)):
         pass
 
     if request.form.get('search') == 'pokemon':
