@@ -29,5 +29,13 @@ def search_type():
 
     return redirect(url_for('index'))
 
+@app.route("/pokemon", methods=['GET'])
+def pokemon():
+    pass
+
+@app.route("/pokemon-type", methods=['GET'])
+def pokemon_type():
+    pass
+
 if __name__ == "__main__":
     app.run()
