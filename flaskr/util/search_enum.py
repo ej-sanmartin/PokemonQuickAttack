@@ -9,7 +9,7 @@ class Search(Enum):
     TYPE = 2
 
     @classmethod
-    def enum_to_string(enum, _search):
-        if _search is enum.POKEMON:
+    def enum_to_string(cls, _search):
+        if _search is cls.POKEMON:
             return 'POKEMON'
         return 'TYPE'
