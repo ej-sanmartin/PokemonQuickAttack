@@ -7,10 +7,12 @@ app = Flask(__name__)
 # By default, set to POKEMON so search works on pokemon name or Id.
 search = Search.POKEMON
 
+
 @app.route("/")
 def index():
     return render_template("index.html.jinja",
                            search=Search.enum_to_string(search))
+
 
 @app.route("/search-type", methods=['POST'])
 def search_type():
@@ -29,13 +31,16 @@ def search_type():
 
     return redirect(url_for('index'))
 
+
 @app.route("/pokemon", methods=['GET'])
 def pokemon():
     pass
 
+
 @app.route("/pokemon-type", methods=['GET'])
 def pokemon_type():
     pass
+
 
 if __name__ == "__main__":
     app.run()
