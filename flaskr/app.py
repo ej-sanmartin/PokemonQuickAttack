@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
+import pokebase as pb
 
-from util.search_enum import Search
+from utils.search_enum import Search
 
 app = Flask(__name__)
 
