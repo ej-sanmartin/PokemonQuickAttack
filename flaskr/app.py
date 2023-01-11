@@ -27,10 +27,7 @@ def search_type():
     if (request.form.get('search') == Search.enum_to_string(search)):
         pass
 
-    if request.form.get('search') == 'pokemon':
-        search = Search.POKEMON
-    elif request.form.get('search') == 'type': 
-        search = Search.TYPE
+    search = Search.POKEMON if request.form.get('search') == 'pokemon' else Search.TYPE
 
     return redirect(url_for('index'))
 
