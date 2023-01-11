@@ -8,6 +8,7 @@ class Search(Enum):
     #: Search will accept type names. For example, "fire", "water", etc.
     TYPE = 2
 
+    # Helper method to turn enum values to strings.
     @classmethod
     def enum_to_string(cls, _search):
         if _search is cls.POKEMON:

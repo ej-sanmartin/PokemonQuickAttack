@@ -5,4 +5,5 @@ from typing import List
 class TypeList:
     '''List of pokemon types.'''
 
+    # List of types.
     types: List[str]
