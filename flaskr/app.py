@@ -11,6 +11,8 @@ search = Search.POKEMON
 
 @app.route("/")
 def index():
+    charmander = pb.pokemon('charmander')
+    print(charmander.height)
     return render_template("index.html.jinja",
                            search=Search.enum_to_string(search))
 
