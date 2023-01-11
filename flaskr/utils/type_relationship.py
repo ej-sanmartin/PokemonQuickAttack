@@ -13,4 +13,4 @@ class TypeRelationship:
     # The type relationship this type has FROM other types.
     no_damage_from: TypeList
     half_damage_from: TypeList
-    duble_damage_from: TypeList
+    double_damage_from: TypeList
