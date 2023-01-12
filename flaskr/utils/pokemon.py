@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from .type_relationship import TypeList
+
 from .type_relationship import TypeRelationship
 
 @dataclass(frozen=True)
@@ -13,7 +13,7 @@ class Pokemon:
     img_url: str
 
     # List of types of this pokemon.
-    types: TypeList
+    types: list()
 
     # List of types this pokemon is strong and weak against.    
     type_relationship: TypeRelationship

@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
 import pokebase as pb
 
+from utils.pokemon_reader_helper import *
 from utils.search_enum import Search
 
 app = Flask(__name__)
@@ -12,7 +13,9 @@ search = Search.POKEMON
 @app.route("/")
 def index():
     charmander = pb.pokemon('charmander')
-    print(charmander.height)
+    print(vars(charmander))
+    charmander_object = create_pokemon_data_from_response(charmander)
+    print(vars(charmander_object))
     return render_template("index.html.jinja",
                            search=Search.enum_to_string(search))
 
