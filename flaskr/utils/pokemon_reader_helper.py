@@ -7,14 +7,14 @@ def create_pokemon_data_from_response(response):
     # Handle getting all the type a pokemon can have.
     pokemon_type = list()
     for type in response.types:
-        pokemon_type.append(type.name)
+        pokemon_type.append(type.type.name)
 
     pokemon_damage_type_relationship = create_type_damage_relationship(
         pokemon_type)
 
     pokemon = Pokemon(
         name = response.name,
-        img_url = response.sprites.other.official-artwork.front_default,
+        img_url = vars(vars(response.sprites.other)["official-artwork"])["front_default"],
         types = pokemon_type,
         type_relationship = pokemon_damage_type_relationship,
     )
