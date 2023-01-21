@@ -1,5 +1,3 @@
-import pokebase as pb
-
 from .type_relationship import TypeRelationship
 
 

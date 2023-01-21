@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Search(Enum):
     """Specifies the two types of search criteria this site recognizes."""
 

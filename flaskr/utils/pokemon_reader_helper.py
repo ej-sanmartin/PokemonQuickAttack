@@ -1,6 +1,7 @@
 from .pokemon import Pokemon
 from .type_reader_helper import create_type_damage_relationship
 
+
 def create_pokemon_data_from_response(response):
     """Takes API response and fills relevant fields in Pokemon dataclass."""
 
