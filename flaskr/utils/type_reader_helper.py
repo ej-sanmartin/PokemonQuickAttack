@@ -16,7 +16,6 @@ def create_type_damage_relationship(target_types):
     for type_relationships in types_api_response:
         type_relationships = vars(type_relationships)
         for damage_relationship, types in type_relationships.items():
-            print(damage_relationship + ": " + str(types) + "\n")
             setattr(type_relationship_output, damage_relationship, types)
     
     return type_relationship_output

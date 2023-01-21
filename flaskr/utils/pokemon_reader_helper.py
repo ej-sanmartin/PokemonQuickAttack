@@ -12,9 +12,11 @@ def create_pokemon_data_from_response(response):
     pokemon_damage_type_relationship = create_type_damage_relationship(
         pokemon_type)
 
+    pokemon_artwork = vars(vars(response.sprites.other)["official-artwork"])
+
     pokemon = Pokemon(
         name = response.name,
-        img_url = vars(vars(response.sprites.other)["official-artwork"])["front_default"],
+        img_url = pokemon_artwork["front_default"],
         types = pokemon_type,
         type_relationship = pokemon_damage_type_relationship,
     )

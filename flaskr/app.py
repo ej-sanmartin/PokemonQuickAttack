@@ -12,13 +12,6 @@ search = Search.POKEMON
 
 @app.route("/")
 def index():
-    """
-    print(vars(charmander))
-    print(charmander.types[0].type.name)
-    """
-    charmander = pb.pokemon('charmander')
-    charmander_object = create_pokemon_data_from_response(charmander)
-    print(vars(charmander_object))
     return render_template("index.html.jinja",
                            search=Search.enum_to_string(search))
 
