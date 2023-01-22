@@ -36,7 +36,7 @@ def get_pokemon():
     pass
 
 
-@app.route("/pokemon-type", methods=['GET'])
+@app.route("/type", methods=['GET'])
 def get_type():
     pass
 
