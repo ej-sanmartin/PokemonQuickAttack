@@ -21,6 +21,7 @@ def _create_type_damage_relationship(target_types):
     
     return type_relationship_output
 
+
 def get_type_relationship(input_type):
     """Get and format type data from PokeAPI."""
 
