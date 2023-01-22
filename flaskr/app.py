@@ -6,7 +6,7 @@ from utils.search_enum import Search
 
 app = Flask(__name__)
 
-# By default, set to POKEMON so search works on pokemon name or Id.
+# Global. By default, set to POKEMON so search works on pokemon name or Id.
 search = Search.POKEMON
 
 

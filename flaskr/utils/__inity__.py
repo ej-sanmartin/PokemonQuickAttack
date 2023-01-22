@@ -1,7 +1,4 @@
-from .pokemon import Pokemon
 from .pokemon_reader_helper import get_pokemon_data
-from .search_enum import Search
-from .type_relationship import TypeRelationship
+from .type_reader_helper import get_type_relationship
 
-__all__ = ['get_pokemon_data', 'Pokemon',
-           'Search', 'TypeRelationship']
+__all__ = ['get_pokemon_data', 'get_type_relationship']
