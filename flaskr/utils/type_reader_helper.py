@@ -1,7 +1,7 @@
 from .type_relationship import TypeRelationship
 
 
-def create_type_damage_relationship(target_types):
+def _create_type_damage_relationship(target_types):
     """Given type(s), format the damage relationship into TypeRelationship."""
 
     types_api_response = list()
