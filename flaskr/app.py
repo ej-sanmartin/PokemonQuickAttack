@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from flask import Flask, request, render_template, redirect, url_for
 
 from utils.pokemon_reader_helper import get_pokemon_data
