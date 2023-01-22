@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
-import pokebase as pb
 
-from utils.pokemon_reader_helper import *
+from utils.pokemon_reader_helper import get_pokemon_data
+from utils.type_reader_helper import get_type_relationship
 from utils.search_enum import Search
 
 app = Flask(__name__)
