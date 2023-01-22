@@ -28,7 +28,7 @@ def _create_pokemon_dataclass(response):
     return pokemon
 
 
-def get_pokemon_info(input_pokemon):
+def get_pokemon_data(input_pokemon):
     """Get and format pokemon data from PokeAPI."""
 
     pokemon = _normalize_string(input_pokemon)
