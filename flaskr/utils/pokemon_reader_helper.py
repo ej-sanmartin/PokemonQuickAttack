@@ -1,5 +1,8 @@
+import pokebase as pb
+
 from .pokemon import Pokemon
 from .type_reader_helper import _create_type_damage_relationship
+from .util import _normalize_string
 
 
 def _create_pokemon_dataclass(response):
@@ -23,3 +26,11 @@ def _create_pokemon_dataclass(response):
     )
 
     return pokemon
+
+
+def get_pokemon_info(input_pokemon):
+    """Get and format pokemon data from PokeAPI."""
+
+    pokemon = _normalize_string(input_pokemon)
+    api_response = pb.pokemon(pokemon)
+    return _create_pokemon_dataclass(api_response)
