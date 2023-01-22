@@ -32,12 +32,12 @@ def search_type():
 
 
 @app.route("/pokemon", methods=['GET'])
-def pokemon():
+def get_pokemon():
     pass
 
 
 @app.route("/pokemon-type", methods=['GET'])
-def pokemon_type():
+def get_type():
     pass
 
 
