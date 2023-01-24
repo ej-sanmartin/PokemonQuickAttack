@@ -11,11 +11,14 @@ app = Flask(__name__)
 # Global. By default, set to POKEMON so search works on pokemon name or Id.
 search = Search.POKEMON
 
+poke_data = {}
+
 
 @app.route("/")
 def index():
     return render_template("index.html.jinja",
-                           search=Search.enum_to_string(search))
+                           search=Search.enum_to_string(search),
+                           data = poke_data)
 
 
 @app.route("/search-type", methods=['POST'])
@@ -28,19 +31,32 @@ def search_type():
     if (request.form.get('search') == Search.enum_to_string(search)):
         pass
 
+    # TODO: Refactor to make this statement not go over the 80 char line limit.
     search = Search.POKEMON if request.form.get('search') == 'pokemon' else Search.TYPE
 
     return redirect(url_for('index'))
 
 
-@app.route("/pokemon", methods=['GET'])
+@app.route("/pokemon", methods=['POST'])
 def get_pokemon():
-    pass
+    global poke_data
+    poke_data = {}
+
+    requested_pokemon = request.form.get('pokemon')
+    poke_data = get_pokemon_data(requested_pokemon)
+
+    return redirect(url_for('index'))
 
 
 @app.route("/type", methods=['GET'])
 def get_type():
-    pass
+    global poke_data
+    poke_data = {}
+
+    requested_type = request.form.get('type')
+    type_data = get_type_relationship(requested_type)
+
+    return redirect(url_for('index'))
 
 
 if __name__ == "__main__":

@@ -1,3 +1,9 @@
+<form action="/pokemon" enctype="multipart/form-data" method="POST">
+    <input type="pokemon" name="pokemon" placeholder="Search for Pokémon" />
+</form>
+
 <div>
-    Pokémon Display.
+    <h2>Pokémon Display.</h3>
+    <p>Name: {{ data.name }}</p>
+    <p>URL: {{ data.img_url }}</p>
 </div>

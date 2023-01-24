@@ -33,4 +33,6 @@ def get_pokemon_data(input_pokemon):
 
     pokemon = _normalize_string(input_pokemon)
     api_response = pb.pokemon(pokemon)
+    if vars(api_response.pokemon) is None:
+        return {}
     return _create_pokemon_dataclass(api_response)
