@@ -48,14 +48,14 @@ def get_pokemon():
     return redirect(url_for('index'))
 
 
-@app.route("/type", methods=['GET'])
+@app.route("/type", methods=['POST'])
 def get_type():
     global poke_data
     poke_data = {}
 
     requested_type = request.form.get('type')
-    type_data = get_type_relationship(requested_type)
-
+    poke_data = get_type_relationship(requested_type)
+    
     return redirect(url_for('index'))
 
 

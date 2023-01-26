@@ -36,6 +36,6 @@ def get_pokemon_data(input_pokemon):
 
     # Handles if pokemon does not exist in the API.
     if vars(api_response)["id_"] is None:
-        return {'error': True}
+        return {"error": True}
 
     return _create_pokemon_dataclass(api_response)
