@@ -12,13 +12,19 @@ app = Flask(__name__)
 search = Search.POKEMON
 
 poke_data = {}
+type_data = {}
 
 
 @app.route("/")
 def index():
+    if search is Search.POKEMON:
+        return render_template("index.html.jinja",
+                            search=Search.enum_to_string(search),
+                            data = poke_data)
+    
     return render_template("index.html.jinja",
-                           search=Search.enum_to_string(search),
-                           data = poke_data)
+                            search=Search.enum_to_string(search),
+                            data = type_data)
 
 
 @app.route("/search-type", methods=['POST'])
@@ -50,12 +56,12 @@ def get_pokemon():
 
 @app.route("/type", methods=['POST'])
 def get_type():
-    global poke_data
-    poke_data = {}
+    global type_data
+    type_data = {}
 
     requested_type = request.form.get('type')
-    poke_data = get_type_relationship(requested_type)
-    
+    type_data = get_type_relationship(requested_type)
+
     return redirect(url_for('index'))
 
 
