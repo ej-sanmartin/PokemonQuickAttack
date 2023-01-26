@@ -4,7 +4,9 @@
 
 <div>
     <h3>Pokémon Display.</h3>
-    {% if data %}
+    {% if data.error %}
+        <p>Pokemon not found.</p>
+    {% elif data %}
         <img src="{{ data.img_url }}" />
         <p>Name: {{ data.name }}</p>
         <div>
