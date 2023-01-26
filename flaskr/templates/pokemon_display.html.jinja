@@ -3,12 +3,12 @@
 </form>
 
 <div>
-    <h3>Pokémon Display.</h3>
+    <h2>Pokémon Display.</h2>
     {% if data.error %}
         <p>Pokemon not found.</p>
     {% elif data %}
         <img src="{{ data.img_url }}" />
-        <p>Name: {{ data.name }}</p>
+        <h3>Name: {{ data.name }}</h3>
         <div>
             <h4>Types</h4>
             {% for type in data.types %}
@@ -19,10 +19,50 @@
         {#       Used in both searches #}
         <div>
             <h4>Type Advantages</h4>
-                {% if data.type_relationship %}
+                {% if data.type_relationship.double_damage_to %}
                     <h5>Super Effective Against:</h5>
                     <ul>
                         {% for type in data.type_relationship.double_damage_to %}
+                            <li>{{ type }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if data.type_relationship.half_damage_to %}
+                    <h5>Does Half Damage To:</h5>
+                    <ul>
+                        {% for type in data.type_relationship.half_damage_to %}
+                            <li>{{ type }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if data.type_relationship.no_damage_to %}
+                    <h5>Is Not Very Effective Against:</h5>
+                    <ul>
+                        {% for type in data.type_relationship.no_damage_to %}
+                            <li>{{ type }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if data.type_relationship.double_damage_from %}
+                    <h5>Super Weak To:</h5>
+                    <ul>
+                        {% for type in data.type_relationship.double_damage_from %}
+                            <li>{{ type }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if data.type_relationship.half_damage_from %}
+                    <h5>Takes Half Damage From:</h5>
+                    <ul>
+                        {% for type in data.type_relationship.half_damage_from %}
+                            <li>{{ type }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if data.type_relationship.no_damage_from %}
+                    <h5>Takes No Damage From:</h5>
+                    <ul>
+                        {% for type in data.type_relationship.no_damage_from %}
                             <li>{{ type }}</li>
                         {% endfor %}
                     </ul>
