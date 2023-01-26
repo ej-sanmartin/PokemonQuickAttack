@@ -1,6 +1,10 @@
 {# TODO: Feature request, make this a searchable dropdown of types. #}
 <form action="/type" enctype="multipart/form-data" method="POST">
-    <input type="type" name="type" placeholder="Search for Type" />
+    <input
+        type="type"
+        name="type"
+        placeholder="{{ data.type|default('Search for Type') }}"
+    />
 </form>
 
 <div>

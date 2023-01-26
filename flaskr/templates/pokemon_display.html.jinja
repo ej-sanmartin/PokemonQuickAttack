@@ -1,5 +1,9 @@
 <form action="/pokemon" enctype="multipart/form-data" method="POST">
-    <input type="pokemon" name="pokemon" placeholder="Search for Pokémon" />
+    <input 
+        type="pokemon"
+        name="pokemon"
+        placeholder="{{ data.name|default('Search for Pokemon') }}"
+    />
 </form>
 
 <div>

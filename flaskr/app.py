@@ -58,6 +58,7 @@ def get_type():
 
     requested_type = request.form.get('type')
     type_data = get_type_relationship(requested_type)
+    type_data["type"] = requested_type
 
     return redirect(url_for('index'))
 
