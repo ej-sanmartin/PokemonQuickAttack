@@ -18,13 +18,10 @@ type_data = {}
 @app.route("/")
 def index():
     if search is Search.POKEMON:
-        return render_template("index.html.jinja",
-                            search=Search.enum_to_string(search),
-                            data = poke_data)
+        return render_template("index.html.jinja", search="POKEMON",
+                                data = poke_data)
     
-    return render_template("index.html.jinja",
-                            search=Search.enum_to_string(search),
-                            data = type_data)
+    return render_template("index.html.jinja", search="TYPE", data = type_data)
 
 
 @app.route("/search-type", methods=['POST'])
