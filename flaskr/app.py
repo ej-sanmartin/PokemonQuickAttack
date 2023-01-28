@@ -27,15 +27,17 @@ def index():
 @app.route("/search-type", methods=['POST'])
 def search_type():
     global search
+    search_type = request.form.get('search')
+
     # Prevents users from sending multiple requests that would cause an unneeded
     # re render. For instance, if the page is expecting a pokemon name, having
     # the user repeatedly press the "pokemon" button will re render the page.
     # The page should only be re rendered if it's changing the search type.
-    if (request.form.get('search') == Search.enum_to_string(search)):
+    if (search_type == Search.enum_to_string(search)):
         pass
 
     # TODO: Refactor to make this statement not go over the 80 char line limit.
-    search = Search.POKEMON if request.form.get('search') == 'pokemon' else Search.TYPE
+    search = Search.POKEMON if search_type == 'pokemon' else Search.TYPE
 
     return redirect(url_for('index'))
 
