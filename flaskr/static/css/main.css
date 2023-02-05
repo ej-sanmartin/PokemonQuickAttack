@@ -34,7 +34,42 @@ html::-webkit-scrollbar {
 @media only screen and (max-width: 1250px) {}
 
 /* For mobile phones */
-@media only screen and (max-width: 600px) {}
+@media only screen and (max-width: 600px) {
+    .search-buttons-container {
+        max-width: 30%;
+        margin: 0 auto;
+        padding: .5rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .pokemon-data-container {
+        max-width: 100%;
+        max-height:  100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pokemon-type-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .pokemon-img {
+        max-width: 25%;
+        max-height: 25%;
+    }
+
+    .input-form {
+        max-width: 60%;
+        text-align: center;
+        margin: 0 auto;
+    }
+}
 
 /* For mobile iphones >X, in landscape orientation */
 @media only screen

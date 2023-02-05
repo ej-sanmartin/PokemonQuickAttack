@@ -1,20 +1,20 @@
-<form action="/pokemon" enctype="multipart/form-data" method="POST">
+<form class="input-form"
+      action="/pokemon"
+      enctype="multipart/form-data"
+      method="POST">
     <input 
         type="pokemon"
         name="pokemon"
-        placeholder="{{ data.name|default('Search for Pokemon') }}"
-    />
+        placeholder="{{ data.name|default('Search for Pokemon') }}" />
 </form>
 
-<div>
-    <h2>Pokémon Display.</h2>
+<div class="pokemon-data-container">
     {% if data.error %}
         <p>Pokemon not found.</p>
     {% elif data %}
-        <img src="{{ data.img_url }}" />
-        <h3>Name: {{ data.name }}</h3>
-        <div>
-            <h4>Types</h4>
+        <img class="pokemon-img" src="{{ data.img_url }}" />
+        <h3 class="pokemon-name">{{ data.name|capitalize }}</h3>
+        <div class="pokemon-type-container">
             {% for type in data.types %}
                 <p>{{ type }}</p>
             {% endfor %}
