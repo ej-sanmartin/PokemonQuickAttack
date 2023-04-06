@@ -12,13 +12,13 @@
     {% if data.error %}
         <p>Pokemon not found.</p>
     {% elif data %}
-        <img class="pokemon-img" src="{{ data.img_url }}" />
         <h3 class="pokemon-name">{{ data.name|capitalize }}</h3>
         <div class="pokemon-type-container">
             {% for type in data.types %}
                 <p>{{ type }}</p>
             {% endfor %}
         </div>
+        <img class="pokemon-img" src="{{ data.img_url }}" />
         {% include 'damage_relationship_table.html.jinja' %}
     {% endif %}
 </div>
