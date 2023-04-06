@@ -1,52 +1,66 @@
 {# TODO: Can be simplified. A lot of repeated logic here. What could be done #}
-{#       is add h5 tag text into the data somehow. Then loop through dict. #}
-{#       Potential problem could be limiations on formatting with CSS. #}
+{#       is add contents of h5 tags into the data somehow. Then loop through #}
+{#       a dict. Potential problem could be limiations with CSS. #}
 <h4>Type Advantages</h4>
+<div class="type-table">
 {% if data.type_relationship.double_damage_to %}
-    <h5>Super Effective Against:</h5>
+    <div class="type-entry">
+        <h5>Super Effective Against:</h5>
         <ul>
             {% for type in data.type_relationship.double_damage_to %}
                 <li>{{ type }}</li>
             {% endfor %}
         </ul>
+    </div>
 {% endif %}
 {% if data.type_relationship.half_damage_to %}
-    <h5>Does Half Damage To:</h5>
+    <div class="type-entry">
+        <h5>Does Half Damage To:</h5>
         <ul>
             {% for type in data.type_relationship.half_damage_to %}
                 <li>{{ type }}</li>
             {% endfor %}
         </ul>
+    </div>
 {% endif %}
 {% if data.type_relationship.no_damage_to %}
-    <h5>Is Not Very Effective Against:</h5>
+    <div class="type-entry">
+        <h5>Not Very Effective Against:</h5>
         <ul>
             {% for type in data.type_relationship.no_damage_to %}
                 <li>{{ type }}</li>
             {% endfor %}
         </ul>
+    </div>
 {% endif %}
 {% if data.type_relationship.double_damage_from %}
-    <h5>Super Weak To:</h5>
-         <ul>
+    <div class="type-entry">
+        <h5>Super Weak To:</h5>
+        <ul>
             {% for type in data.type_relationship.double_damage_from %}
                 <li>{{ type }}</li>
             {% endfor %}
         </ul>
+    </div>
 {% endif %}
 {% if data.type_relationship.half_damage_from %}
-    <h5>Takes Half Damage From:</h5>
+    <div class="type-entry">
+        <h5>Takes Half Damage From:</h5>
         <ul>
             {% for type in data.type_relationship.half_damage_from %}
                 <li>{{ type }}</li>
             {% endfor %}
         </ul>
+    </div>
 {% endif %}
 {% if data.type_relationship.no_damage_from %}
+    <div class="type-entry">
         <h5>Takes No Damage From:</h5>
-            <ul>
-                {% for type in data.type_relationship.no_damage_from %}
-                    <li>{{ type }}</li>
-                {% endfor %}
-             </ul>
+        <ul>
+            {% for type in data.type_relationship.no_damage_from %}
+                <li>{{ type }}</li>
+            {% endfor %}
+         </ul>
+    </div>
 {% endif %}
+</div>
