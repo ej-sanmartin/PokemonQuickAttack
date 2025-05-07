@@ -388,10 +388,27 @@ h1 {
     }
 }
 
+/* For modern iPhones and similar devices */
+@media only screen and (min-width: 375px) and (max-width: 428px) {
+    .search-buttons-container {
+        max-width: 80%;
+        gap: 15px;
+    }
+
+    .pokemon-img {
+        max-width: 50%;
+        max-height: 50%;
+    }
+
+    .input-form {
+        max-width: 85%;
+    }
+}
+
 /* For mobile phones */
 @media only screen and (max-width: 600px) {
     .search-buttons-container {
-        max-width: 30%;
+        max-width: 80%;
         margin: 0 auto;
         padding: .5rem 0;
         display: flex;
@@ -401,7 +418,7 @@ h1 {
 
     .pokemon-data-container {
         max-width: 100%;
-        max-height:  100%;
+        max-height: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -415,12 +432,12 @@ h1 {
     }
 
     .pokemon-img {
-        max-width: 25%;
-        max-height: 25%;
+        max-width: 50%;
+        max-height: 50%;
     }
 
     .input-form {
-        max-width: 60%;
+        max-width: 85%;
         text-align: center;
         margin: 0 auto;
     }
