@@ -8,10 +8,28 @@
 </head>
 <body>
     <h1>Pokémon Quick Attack</h1>
-    <form class="search-buttons-container" action="/search-type" enctype="multipart/form-data" method="POST">
-        <button type="submit" name="search" value="pokemon">Pokémon</button>
-        <button type="submit" name="search" value="type">Type</button>
-    </form>
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <div class="search-buttons-container">
+        <a href="{{ url_for('change_search_type', search_type='pokemon') }}" 
+           class="search-button {% if search == 'POKEMON' %}active{% endif %}">
+            Pokémon
+        </a>
+        <a href="{{ url_for('change_search_type', search_type='type') }}"
+           class="search-button {% if search == 'TYPE' %}active{% endif %}">
+            Type
+        </a>
+    </div>
+    
     {% block body %}{% endblock body %}
 </body>
 </html>

@@ -1,16 +1,20 @@
 <form class="input-form"
-      action="/pokemon"
-      enctype="multipart/form-data"
-      method="POST">
+      action="{{ url_for('get_pokemon') }}"
+      method="GET">
     <input 
-        type="pokemon"
-        name="pokemon"
-        placeholder="{{ data.name|default('Search for Pokemon') }}" />
+        type="text"
+        name="name"
+        placeholder="{{ data.name|default('Search for Pokemon') }}"
+        required
+        minlength="1"
+        pattern="[A-Za-z0-9-]+"
+        title="Please enter a valid Pokémon name or ID" />
+    <button type="submit">Search</button>
 </form>
 
 <div class="pokemon-data-container">
     {% if data.error %}
-        <p>Pokemon not found.</p>
+        <p class="error-message">Pokemon not found.</p>
     {% elif data %}
         <h3 class="pokemon-name">{{ data.name|capitalize }}</h3>
         <div class="pokemon-type-container">
@@ -18,7 +22,7 @@
                 <p>{{ type }}</p>
             {% endfor %}
         </div>
-        <img class="pokemon-img" src="{{ data.img_url }}" />
+        <img class="pokemon-img" src="{{ data.img_url }}" alt="{{ data.name }}" />
         {% include 'damage_relationship_table.html.jinja' %}
     {% endif %}
 </div>
