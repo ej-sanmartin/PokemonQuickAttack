@@ -24,7 +24,6 @@ def index():
     try:
         search_type = Search.string_to_enum(session.get('search_type', 'POKEMON'))
         data = session.get('search_data', {})
-        print(f"Data being passed to template: {data}")  # Debug log
         
         return render_template("index.html.jinja", 
                              search=Search.enum_to_string(search_type),
@@ -58,10 +57,7 @@ def get_pokemon():
             return redirect(url_for('index'))
         
         flash('Searching for Pokémon...')
-        print(f"Searching for Pokémon: {requested_pokemon}")  # Debug log
-        
         pokemon_data = get_pokemon_data(requested_pokemon)
-        print(f"Pokemon data type: {type(pokemon_data)}")  # Debug log
         
         if isinstance(pokemon_data, dict) and pokemon_data.get('error'):
             flash('Pokémon not found')
@@ -83,16 +79,13 @@ def get_pokemon():
                         'double_damage_from': getattr(type_relationship, 'double_damage_from', [])
                     }
                 }
-                print(f"Session data: {session['search_data']}")  # Debug log
                 flash('Pokémon found!')
             except Exception as e:
-                print(f"Error processing Pokemon data: {str(e)}")  # Debug log
                 flash('Error processing Pokémon data')
                 session['search_data'] = {}
         
         return redirect(url_for('index'))
     except Exception as e:
-        print(f"Unexpected error in get_pokemon: {str(e)}")  # Debug log
         flash('An unexpected error occurred')
         session['search_data'] = {}
         return redirect(url_for('index'))

@@ -22,7 +22,6 @@ def _create_pokemon_dataclass(response):
             pokemon_artwork = vars(vars(response.sprites.other)["official-artwork"])
             img_url = pokemon_artwork["front_default"]
         except (AttributeError, KeyError):
-            print("Warning: Could not get official artwork, using default sprite")
             img_url = response.sprites.front_default
 
         pokemon = Pokemon(
@@ -34,7 +33,6 @@ def _create_pokemon_dataclass(response):
 
         return pokemon
     except Exception as e:
-        print(f"Error creating Pokemon dataclass: {str(e)}")
         return {"error": True}
 
 
@@ -51,5 +49,4 @@ def get_pokemon_data(input_pokemon):
 
         return _create_pokemon_dataclass(api_response)
     except Exception as e:
-        print(f"Error getting Pokemon data: {str(e)}")
         return {"error": True}
