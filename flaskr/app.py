@@ -29,7 +29,7 @@ def index():
                              search=Search.enum_to_string(search_type),
                              data=data)
     except ValueError as e:
-        flash(str(e))
+        flash(str(e), 'error')
         session['search_type'] = Search.enum_to_string(Search.POKEMON)
         return redirect(url_for('index'))
 
@@ -40,9 +40,9 @@ def change_search_type(search_type):
         search_enum = Search.string_to_enum(search_type)
         # Store the validated string representation in session
         session['search_type'] = Search.enum_to_string(search_enum)
-        flash(f'Search mode changed to {search_type.title()}')
+        flash(f'Search mode changed to {search_type.title()}', 'info')
     except ValueError as e:
-        flash(str(e))
+        flash(str(e), 'error')
         session['search_type'] = Search.enum_to_string(Search.POKEMON)
     
     return redirect(url_for('index'))
@@ -53,14 +53,14 @@ def get_pokemon():
     try:
         requested_pokemon = request.args.get('name', '')
         if not requested_pokemon:
-            flash('Please enter a Pokémon name')
+            flash('Please enter a Pokémon name', 'error')
             return redirect(url_for('index'))
         
-        flash('Searching for Pokémon...')
+        flash('Searching for Pokémon...', 'loading')
         pokemon_data = get_pokemon_data(requested_pokemon)
         
         if isinstance(pokemon_data, dict) and pokemon_data.get('error'):
-            flash('Pokémon not found')
+            flash('Pokémon not found', 'error')
             session['search_data'] = {}
         else:
             try:
@@ -79,14 +79,15 @@ def get_pokemon():
                         'double_damage_from': getattr(type_relationship, 'double_damage_from', [])
                     }
                 }
-                flash('Pokémon found!')
+                # Remove the loading message since we have results
+                session.pop('_flashes', None)
             except Exception as e:
-                flash('Error processing Pokémon data')
+                flash('Error processing Pokémon data', 'error')
                 session['search_data'] = {}
         
         return redirect(url_for('index'))
     except Exception as e:
-        flash('An unexpected error occurred')
+        flash('An unexpected error occurred', 'error')
         session['search_data'] = {}
         return redirect(url_for('index'))
 
@@ -95,19 +96,20 @@ def get_pokemon():
 def get_type():
     requested_type = request.args.get('name', '')
     if not requested_type:
-        flash('Please enter a type')
+        flash('Please enter a type', 'error')
         return redirect(url_for('index'))
     
-    flash('Searching for type...')
+    flash('Searching for type...', 'loading')
     type_data = get_type_relationship(requested_type)
     
     if type_data.get('error'):
-        flash('Type not found')
+        flash('Type not found', 'error')
         session['search_data'] = {}
     else:
         type_data["type"] = requested_type
         session['search_data'] = type_data
-        flash('Type found!')
+        # Remove the loading message since we have results
+        session.pop('_flashes', None)
     
     return redirect(url_for('index'))
 
