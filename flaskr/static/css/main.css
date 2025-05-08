@@ -283,6 +283,10 @@ h1 {
         padding: 8px 16px;
         min-width: 100px;
     }
+
+    .bmc-container iframe {
+        transform: scale(0.7);
+    }
 }
 
 @media only screen and (max-width: 480px) {
@@ -332,6 +336,10 @@ h1 {
     .pokemon-img {
         max-width: 120px;
         max-height: 120px;
+    }
+
+    .bmc-container iframe {
+        transform: scale(0.6);
     }
 }
 
@@ -615,4 +623,17 @@ button[type="submit"]:hover, button[type="submit"]:focus {
 
 .attribution-divider {
     opacity: 0.5;
+}
+
+/* Buy Me A Coffee Button Styles */
+.bmc-container {
+    margin-top: 1.75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bmc-container iframe {
+    transform: scale(0.8);
+    transform-origin: center;
 }
