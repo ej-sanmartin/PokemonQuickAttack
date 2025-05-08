@@ -6,4 +6,10 @@ services:
     startCommand: gunicorn wsgi:app
     envVars:
       - key: PYTHON_VERSION
-        value: 3.9.0 
+        value: 3.9.0
+      - key: GUNICORN_WORKERS
+        value: "2"
+      - key: GUNICORN_TIMEOUT
+        value: "30"
+      - key: GUNICORN_MAX_REQUESTS
+        value: "1000" 
