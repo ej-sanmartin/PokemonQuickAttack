@@ -12,10 +12,14 @@
     <button type="submit">Search</button>
 </form>
 
-<div class="pokemon-data-container">
+<div id="search-status-message">
     {% if data.error %}
-        <p class="error-message">Pokemon not found.</p>
-    {% elif data %}
+        <p class="error-message">No Results Found. :(</p>
+    {% endif %}
+</div>
+
+<div class="pokemon-data-container">
+    {% if data and not data.error %}
         <h3 class="pokemon-name">{{ data.name|capitalize }}</h3>
         <div class="pokemon-type-container">
             {% for type, color in data.zipped_types %}

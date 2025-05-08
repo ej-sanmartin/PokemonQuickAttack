@@ -57,15 +57,14 @@ def get_pokemon():
     try:
         requested_pokemon = request.args.get('name', '')
         if not requested_pokemon:
-            flash('Please enter a Pokémon name', 'error')
+            session['search_data'] = {'error': 'Please enter a Pokémon name'}
             return redirect(url_for('index'))
         
         flash('Searching for Pokémon...', 'loading')
         pokemon_data = get_pokemon_data(requested_pokemon)
         
         if isinstance(pokemon_data, dict) and pokemon_data.get('error'):
-            flash('Pokémon not found', 'error')
-            session['search_data'] = {}
+            session['search_data'] = {'error': 'Pokémon not found'}
         else:
             try:
                 # Convert Pokemon dataclass to dictionary for session storage
@@ -96,13 +95,11 @@ def get_pokemon():
                 # Remove the loading message since we have results
                 session.pop('_flashes', None)
             except Exception as e:
-                flash('Error processing Pokémon data', 'error')
-                session['search_data'] = {}
+                session['search_data'] = {'error': 'Error processing Pokémon data'}
         
         return redirect(url_for('index'))
     except Exception as e:
-        flash('An unexpected error occurred', 'error')
-        session['search_data'] = {}
+        session['search_data'] = {'error': 'An unexpected error occurred'}
         return redirect(url_for('index'))
 
 @app.route("/type")
@@ -110,15 +107,14 @@ def get_pokemon():
 def get_type():
     requested_type = request.args.get('name', '')
     if not requested_type:
-        flash('Please enter a type', 'error')
+        session['search_data'] = {'error': 'Please enter a type'}
         return redirect(url_for('index'))
     
     flash('Searching for type...', 'loading')
     type_data = get_type_relationship(requested_type)
     
     if type_data.get('error'):
-        flash('Type not found', 'error')
-        session['search_data'] = {}
+        session['search_data'] = {'error': 'Type not found'}
     else:
         type_data["type"] = requested_type
         type_name = requested_type.lower()
