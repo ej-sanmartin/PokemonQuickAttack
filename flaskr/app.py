@@ -41,10 +41,13 @@ def change_search_type(search_type):
         search_enum = Search.string_to_enum(search_type)
         # Store the validated string representation in session
         session['search_type'] = Search.enum_to_string(search_enum)
+        # Clear any existing search data when switching modes
+        session.pop('search_data', None)
         flash(f'Search mode changed to {search_type.title()}', 'info')
     except ValueError as e:
         flash(str(e), 'error')
         session['search_type'] = Search.enum_to_string(Search.POKEMON)
+        session.pop('search_data', None)
     
     return redirect(url_for('index'))
 
