@@ -577,3 +577,42 @@ button[type="submit"]:hover, button[type="submit"]:focus {
     letter-spacing: 1px;
     margin-right: 6px;
 }
+
+/* Attribution Styles */
+.attribution {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    font-size: 0.8rem;
+    color: var(--pokedex-dark);
+    text-align: center;
+}
+
+.attribution-separator {
+    height: 1px;
+    background-color: var(--pokedex-dark);
+    opacity: 0.3;
+    margin-bottom: 1rem;
+}
+
+.attribution-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.attribution a {
+    color: var(--pokedex-dark);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.attribution a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.attribution-divider {
+    opacity: 0.5;
+}

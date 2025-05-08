@@ -121,6 +121,24 @@ def get_type():
         type_name = requested_type.lower()
         # Add color for the type
         type_data["type_color"] = TYPE_COLORS.get(type_name, '#A8A77A')
+        # Zip type relationship lists with their colors
+        def zip_types(type_list):
+            return list(zip(type_list, [TYPE_COLORS.get(t.lower(), '#A8A77A') for t in type_list]))
+        tr = type_data["type_relationship"]
+        type_data["type_relationship"] = {
+            'no_damage_to': getattr(tr, 'no_damage_to', []),
+            'half_damage_to': getattr(tr, 'half_damage_to', []),
+            'double_damage_to': getattr(tr, 'double_damage_to', []),
+            'no_damage_from': getattr(tr, 'no_damage_from', []),
+            'half_damage_from': getattr(tr, 'half_damage_from', []),
+            'double_damage_from': getattr(tr, 'double_damage_from', []),
+            'zipped_no_damage_to': zip_types(getattr(tr, 'no_damage_to', [])),
+            'zipped_half_damage_to': zip_types(getattr(tr, 'half_damage_to', [])),
+            'zipped_double_damage_to': zip_types(getattr(tr, 'double_damage_to', [])),
+            'zipped_no_damage_from': zip_types(getattr(tr, 'no_damage_from', [])),
+            'zipped_half_damage_from': zip_types(getattr(tr, 'half_damage_from', [])),
+            'zipped_double_damage_from': zip_types(getattr(tr, 'double_damage_from', [])),
+        }
         session['search_data'] = type_data
         # Remove the loading message since we have results
         session.pop('_flashes', None)
