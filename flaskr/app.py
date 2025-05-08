@@ -3,13 +3,15 @@
 from flask import Flask, request, render_template, redirect, url_for, session, flash
 from functools import wraps
 
-from utils.pokemon_reader_helper import get_pokemon_data
-from utils.type_reader_helper import get_type_relationship
 from utils.search_enum import Search
-from utils.type_colors import TYPE_COLORS
+from cache.main import (
+    init_cache, get_cached_pokemon_data, get_cached_type_data,
+    process_pokemon_data, process_type_data
+)
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-here'  # Required for sessions and flash messages
+init_cache(app)
 
 def search_type_required(f):
     @wraps(f)
@@ -60,42 +62,11 @@ def get_pokemon():
             return redirect(url_for('index'))
         
         flash('Searching for Pokémon...', 'loading')
-        pokemon_data = get_pokemon_data(requested_pokemon)
+        pokemon_data = get_cached_pokemon_data(requested_pokemon)
+        session['search_data'] = process_pokemon_data(pokemon_data)
         
-        if isinstance(pokemon_data, dict) and pokemon_data.get('error'):
-            session['search_data'] = {'error': 'Pokémon not found'}
-        else:
-            try:
-                # Convert Pokemon dataclass to dictionary for session storage
-                type_relationship = pokemon_data.type_relationship
-                def zip_types(type_list):
-                    return list(zip(type_list, [TYPE_COLORS.get(t.lower(), '#A8A77A') for t in type_list]))
-                session['search_data'] = {
-                    'name': pokemon_data.name,
-                    'img_url': pokemon_data.img_url,
-                    'types': pokemon_data.types,
-                    'type_colors': [TYPE_COLORS.get(t.lower(), '#A8A77A') for t in pokemon_data.types],
-                    'zipped_types': list(zip(pokemon_data.types, [TYPE_COLORS.get(t.lower(), '#A8A77A') for t in pokemon_data.types])),
-                    'type_relationship': {
-                        'no_damage_to': getattr(type_relationship, 'no_damage_to', []),
-                        'half_damage_to': getattr(type_relationship, 'half_damage_to', []),
-                        'double_damage_to': getattr(type_relationship, 'double_damage_to', []),
-                        'no_damage_from': getattr(type_relationship, 'no_damage_from', []),
-                        'half_damage_from': getattr(type_relationship, 'half_damage_from', []),
-                        'double_damage_from': getattr(type_relationship, 'double_damage_from', []),
-                        'zipped_no_damage_to': zip_types(getattr(type_relationship, 'no_damage_to', [])),
-                        'zipped_half_damage_to': zip_types(getattr(type_relationship, 'half_damage_to', [])),
-                        'zipped_double_damage_to': zip_types(getattr(type_relationship, 'double_damage_to', [])),
-                        'zipped_no_damage_from': zip_types(getattr(type_relationship, 'no_damage_from', [])),
-                        'zipped_half_damage_from': zip_types(getattr(type_relationship, 'half_damage_from', [])),
-                        'zipped_double_damage_from': zip_types(getattr(type_relationship, 'double_damage_from', [])),
-                    }
-                }
-                # Remove the loading message since we have results
-                session.pop('_flashes', None)
-            except Exception as e:
-                session['search_data'] = {'error': 'Error processing Pokémon data'}
-        
+        # Remove the loading message since we have results
+        session.pop('_flashes', None)
         return redirect(url_for('index'))
     except Exception as e:
         session['search_data'] = {'error': 'An unexpected error occurred'}
@@ -110,38 +81,11 @@ def get_type():
         return redirect(url_for('index'))
     
     flash('Searching for type...', 'loading')
-    type_data = get_type_relationship(requested_type)
+    type_data = get_cached_type_data(requested_type)
+    session['search_data'] = process_type_data(requested_type, type_data)
     
-    if type_data.get('error'):
-        session['search_data'] = {'error': 'No Results Found :('}
-        session.pop('_flashes', None)
-    else:
-        type_data["type"] = requested_type
-        type_name = requested_type.lower()
-        # Add color for the type
-        type_data["type_color"] = TYPE_COLORS.get(type_name, '#A8A77A')
-        # Zip type relationship lists with their colors
-        def zip_types(type_list):
-            return list(zip(type_list, [TYPE_COLORS.get(t.lower(), '#A8A77A') for t in type_list]))
-        tr = type_data["type_relationship"]
-        type_data["type_relationship"] = {
-            'no_damage_to': getattr(tr, 'no_damage_to', []),
-            'half_damage_to': getattr(tr, 'half_damage_to', []),
-            'double_damage_to': getattr(tr, 'double_damage_to', []),
-            'no_damage_from': getattr(tr, 'no_damage_from', []),
-            'half_damage_from': getattr(tr, 'half_damage_from', []),
-            'double_damage_from': getattr(tr, 'double_damage_from', []),
-            'zipped_no_damage_to': zip_types(getattr(tr, 'no_damage_to', [])),
-            'zipped_half_damage_to': zip_types(getattr(tr, 'half_damage_to', [])),
-            'zipped_double_damage_to': zip_types(getattr(tr, 'double_damage_to', [])),
-            'zipped_no_damage_from': zip_types(getattr(tr, 'no_damage_from', [])),
-            'zipped_half_damage_from': zip_types(getattr(tr, 'half_damage_from', [])),
-            'zipped_double_damage_from': zip_types(getattr(tr, 'double_damage_from', [])),
-        }
-        session['search_data'] = type_data
-        # Remove the loading message since we have results
-        session.pop('_flashes', None)
-    
+    # Remove the loading message since we have results
+    session.pop('_flashes', None)
     return redirect(url_for('index'))
 
 if __name__ == "__main__":

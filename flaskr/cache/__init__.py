@@ -1,0 +1,1 @@
+"""Cache module for Pokemon Quick Guide application.""" 
