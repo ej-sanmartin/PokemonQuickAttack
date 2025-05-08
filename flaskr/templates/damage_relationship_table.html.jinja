@@ -7,8 +7,8 @@
     <div class="type-entry">
         <h5>Super Effective Against:</h5>
         <ul>
-            {% for type in data.type_relationship.double_damage_to %}
-                <li>{{ type }}</li>
+            {% for type, color in data.type_relationship.zipped_double_damage_to %}
+                <li><span class="type-block" style="background:{{ color }};">{{ type|upper }}</span></li>
             {% endfor %}
         </ul>
     </div>
@@ -17,8 +17,8 @@
     <div class="type-entry">
         <h5>Does Half Damage To:</h5>
         <ul>
-            {% for type in data.type_relationship.half_damage_to %}
-                <li>{{ type }}</li>
+            {% for type, color in data.type_relationship.zipped_half_damage_to %}
+                <li><span class="type-block" style="background:{{ color }};">{{ type|upper }}</span></li>
             {% endfor %}
         </ul>
     </div>
@@ -27,8 +27,8 @@
     <div class="type-entry">
         <h5>Not Very Effective Against:</h5>
         <ul>
-            {% for type in data.type_relationship.no_damage_to %}
-                <li>{{ type }}</li>
+            {% for type, color in data.type_relationship.zipped_no_damage_to %}
+                <li><span class="type-block" style="background:{{ color }};">{{ type|upper }}</span></li>
             {% endfor %}
         </ul>
     </div>
@@ -37,8 +37,8 @@
     <div class="type-entry">
         <h5>Super Weak To:</h5>
         <ul>
-            {% for type in data.type_relationship.double_damage_from %}
-                <li>{{ type }}</li>
+            {% for type, color in data.type_relationship.zipped_double_damage_from %}
+                <li><span class="type-block" style="background:{{ color }};">{{ type|upper }}</span></li>
             {% endfor %}
         </ul>
     </div>
@@ -47,8 +47,8 @@
     <div class="type-entry">
         <h5>Takes Half Damage From:</h5>
         <ul>
-            {% for type in data.type_relationship.half_damage_from %}
-                <li>{{ type }}</li>
+            {% for type, color in data.type_relationship.zipped_half_damage_from %}
+                <li><span class="type-block" style="background:{{ color }};">{{ type|upper }}</span></li>
             {% endfor %}
         </ul>
     </div>
@@ -57,8 +57,8 @@
     <div class="type-entry">
         <h5>Takes No Damage From:</h5>
         <ul>
-            {% for type in data.type_relationship.no_damage_from %}
-                <li>{{ type }}</li>
+            {% for type, color in data.type_relationship.zipped_no_damage_from %}
+                <li><span class="type-block" style="background:{{ color }};">{{ type|upper }}</span></li>
             {% endfor %}
          </ul>
     </div>

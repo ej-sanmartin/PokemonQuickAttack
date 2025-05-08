@@ -67,17 +67,27 @@ def get_pokemon():
             try:
                 # Convert Pokemon dataclass to dictionary for session storage
                 type_relationship = pokemon_data.type_relationship
+                def zip_types(type_list):
+                    return list(zip(type_list, [TYPE_COLORS.get(t.lower(), '#A8A77A') for t in type_list]))
                 session['search_data'] = {
                     'name': pokemon_data.name,
                     'img_url': pokemon_data.img_url,
                     'types': pokemon_data.types,
+                    'type_colors': [TYPE_COLORS.get(t.lower(), '#A8A77A') for t in pokemon_data.types],
+                    'zipped_types': list(zip(pokemon_data.types, [TYPE_COLORS.get(t.lower(), '#A8A77A') for t in pokemon_data.types])),
                     'type_relationship': {
                         'no_damage_to': getattr(type_relationship, 'no_damage_to', []),
                         'half_damage_to': getattr(type_relationship, 'half_damage_to', []),
                         'double_damage_to': getattr(type_relationship, 'double_damage_to', []),
                         'no_damage_from': getattr(type_relationship, 'no_damage_from', []),
                         'half_damage_from': getattr(type_relationship, 'half_damage_from', []),
-                        'double_damage_from': getattr(type_relationship, 'double_damage_from', [])
+                        'double_damage_from': getattr(type_relationship, 'double_damage_from', []),
+                        'zipped_no_damage_to': zip_types(getattr(type_relationship, 'no_damage_to', [])),
+                        'zipped_half_damage_to': zip_types(getattr(type_relationship, 'half_damage_to', [])),
+                        'zipped_double_damage_to': zip_types(getattr(type_relationship, 'double_damage_to', [])),
+                        'zipped_no_damage_from': zip_types(getattr(type_relationship, 'no_damage_from', [])),
+                        'zipped_half_damage_from': zip_types(getattr(type_relationship, 'half_damage_from', [])),
+                        'zipped_double_damage_from': zip_types(getattr(type_relationship, 'double_damage_from', [])),
                     }
                 }
                 # Remove the loading message since we have results
