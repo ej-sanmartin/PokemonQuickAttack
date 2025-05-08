@@ -553,6 +553,7 @@ button[type="submit"]:hover, button[type="submit"]:focus {
     font-family: 'Press Start 2P', 'Open Sans', sans-serif;
     box-sizing: border-box;
     margin: 0;
+    color: var(--pokedex-dark);
 }
 
 .input-form button[type="submit"] {
