@@ -6,6 +6,7 @@ from functools import wraps
 from utils.pokemon_reader_helper import get_pokemon_data
 from utils.type_reader_helper import get_type_relationship
 from utils.search_enum import Search
+from utils.type_colors import TYPE_COLORS
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-here'  # Required for sessions and flash messages
@@ -107,6 +108,9 @@ def get_type():
         session['search_data'] = {}
     else:
         type_data["type"] = requested_type
+        type_name = requested_type.lower()
+        # Add color for the type
+        type_data["type_color"] = TYPE_COLORS.get(type_name, '#A8A77A')
         session['search_data'] = type_data
         # Remove the loading message since we have results
         session.pop('_flashes', None)
