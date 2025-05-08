@@ -33,4 +33,7 @@ def get_type_relationship(input_type):
     """Get and format type data from PokeAPI."""
 
     type = _normalize_string(input_type)
-    return {"type_relationship": _create_type_damage_relationship([type])}
+    relationship = _create_type_damage_relationship([type])
+    if isinstance(relationship, dict) and relationship.get("error"):
+        return {"error": True}
+    return {"type": type, "type_relationship": relationship}

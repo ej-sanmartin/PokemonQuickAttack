@@ -113,7 +113,8 @@ def get_type():
     type_data = get_type_relationship(requested_type)
     
     if type_data.get('error'):
-        session['search_data'] = {'error': 'Type not found'}
+        session['search_data'] = {'error': 'No Results Found :('}
+        session.pop('_flashes', None)
     else:
         type_data["type"] = requested_type
         type_name = requested_type.lower()
