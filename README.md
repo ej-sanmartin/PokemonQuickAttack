@@ -34,12 +34,5 @@ site that only shows you the information you need.
    http://127.0.0.1:5000
    ```
 
-## Feature Request Wishlist
-* Tests
-* Flask best practices
-* General optimizations to server
-* Kofi Integration for tips
-* Solana Integration for tips
-
 ## Contributers
 * Edgar Jr San Martin (G:ej-sanmartin, I,T:ej_sanmartin)
