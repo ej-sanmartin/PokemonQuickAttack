@@ -1,8 +1,8 @@
 import pokebase as pb
 
-from ..models.pokemon import Pokemon
-from .type_reader_helper import _create_type_damage_relationship
-from .util import _normalize_string
+from flaskr.models.pokemon import Pokemon
+from flaskr.services.type_reader_helper import _create_type_damage_relationship
+from flaskr.utils.util import _normalize_string
 
 
 def _create_pokemon_dataclass(response):

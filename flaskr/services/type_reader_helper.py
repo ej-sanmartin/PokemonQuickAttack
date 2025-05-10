@@ -1,7 +1,7 @@
 import pokebase as pb
 
-from ..models.type_relationship import TypeRelationship
-from .util import _normalize_string
+from flaskr.models.type_relationship import TypeRelationship
+from flaskr.utils.util import _normalize_string
 
 
 def _create_type_damage_relationship(target_types):
