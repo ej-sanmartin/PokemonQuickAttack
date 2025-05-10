@@ -1,6 +1,6 @@
 import pokebase as pb
 
-from .pokemon import Pokemon
+from ..models.pokemon import Pokemon
 from .type_reader_helper import _create_type_damage_relationship
 from .util import _normalize_string
 

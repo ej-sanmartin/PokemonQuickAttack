@@ -1,6 +1,6 @@
 import pokebase as pb
 
-from .type_relationship import TypeRelationship
+from ..models.type_relationship import TypeRelationship
 from .util import _normalize_string
 
 

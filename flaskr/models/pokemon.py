@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from .type_relationship import TypeRelationship
+from flaskr.models.type_relationship import TypeRelationship
 
 
 @dataclass(frozen=True)
