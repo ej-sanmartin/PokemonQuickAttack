@@ -3,7 +3,7 @@
 from flask import Flask, request, render_template, redirect, url_for, session, flash
 from functools import wraps
 
-from utils.search_enum import Search
+from constants.search_enum import Search
 from cache.main import (
     init_cache, get_cached_pokemon_data, get_cached_type_data,
     process_pokemon_data, process_type_data

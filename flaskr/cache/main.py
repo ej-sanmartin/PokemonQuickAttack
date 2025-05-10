@@ -1,8 +1,9 @@
 """Cache implementation for Pokemon Quick Guide application."""
+from flask import current_app
+from services.pokemon_reader_helper import get_pokemon_data
+from services.type_reader_helper import get_type_relationship
+from constants.type_colors import TYPE_COLORS
 from flask_caching import Cache
-from utils.pokemon_reader_helper import get_pokemon_data
-from utils.type_reader_helper import get_type_relationship
-from utils.type_colors import TYPE_COLORS
 
 cache = Cache()
 
