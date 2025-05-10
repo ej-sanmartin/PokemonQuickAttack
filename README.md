@@ -3,6 +3,8 @@
 Know a Pokémon's type strengths and weaknesses fast with this
 site that only shows you the information you need.
 
+**Live Site:** [pkadv.gg](https://pkadv.gg)
+
 ## Dependencies
 * Python v3.6
 * Flask v2.2
