@@ -21,6 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showDropdown(filteredTypes) {
         dropdown.innerHTML = '';
+        if (filteredTypes.length === 0) {
+            dropdown.classList.remove('show');
+            return;
+        }
+        
         filteredTypes.forEach((type, index) => {
             const option = document.createElement('div');
             option.className = 'type-option';
