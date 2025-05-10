@@ -1,4 +1,6 @@
-{# TODO: Feature request, make this a searchable dropdown of types. #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/type-dropdown.css') }}">
+<script src="{{ url_for('static', filename='js/type-dropdown.js') }}"></script>
+
 <form class="input-form" action="{{ url_for('get_type') }}" method="GET">
     <input
         type="text"
