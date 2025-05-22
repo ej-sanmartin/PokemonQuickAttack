@@ -40,6 +40,3 @@ function createFlashContainer() {
     document.body.insertBefore(container, document.body.firstChild);
     return container;
 }
-
-// Run on page load
-document.addEventListener('DOMContentLoaded', handleFlashMessages); 

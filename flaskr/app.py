@@ -6,7 +6,7 @@ from functools import wraps
 from constants.search_enum import Search
 from cache.main import (
     init_cache, get_cached_pokemon_data, get_cached_type_data,
-    process_pokemon_data, process_type_data
+    process_pokemon_data, process_type_data, get_all_pokemon_names
 )
 
 app = Flask(__name__)
@@ -28,9 +28,16 @@ def index():
         search_type = Search.string_to_enum(session.get('search_type', 'POKEMON'))
         data = session.get('search_data', {})
         
-        return render_template("index.html.jinja", 
-                             search=Search.enum_to_string(search_type),
-                             data=data)
+        template_data = {
+            'search': Search.enum_to_string(search_type),
+            'data': data
+        }
+        
+        # Add pokemon names for autocomplete when in pokemon search mode
+        if search_type == Search.POKEMON:
+            template_data['pokemon_names'] = get_all_pokemon_names()
+        
+        return render_template("index.html.jinja", **template_data)
     except ValueError as e:
         flash(str(e), 'error')
         session['search_type'] = Search.enum_to_string(Search.POKEMON)

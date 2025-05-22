@@ -1,3 +1,9 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pokemon-dropdown.css') }}">
+<script>
+    window.pokemonNames = {{ pokemon_names|tojson|safe }};
+</script>
+<script src="{{ url_for('static', filename='js/pokemon-dropdown.js') }}"></script>
+
 <form class="input-form"
       action="{{ url_for('get_pokemon') }}"
       method="GET">

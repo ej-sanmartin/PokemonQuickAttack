@@ -1,5 +1,7 @@
 """Cache implementation for Pokemon Quick Guide application."""
 from flask import current_app
+import pokebase as pb
+import requests
 from services.pokemon_reader_helper import get_pokemon_data
 from services.type_reader_helper import get_type_relationship
 from constants.type_colors import TYPE_COLORS
@@ -13,6 +15,27 @@ def init_cache(app):
         'CACHE_TYPE': 'SimpleCache',
         'CACHE_DEFAULT_TIMEOUT': 300  # 5 minutes cache timeout
     })
+    with app.app_context():
+        _init_pokemon_names_cache()
+
+def _init_pokemon_names_cache():
+    """Initialize the cache with all Pokémon names."""
+    try:
+        # Get all Pokémon from the API using requests
+        response = requests.get('https://pokeapi.co/api/v2/pokemon?limit=1026')
+        response.raise_for_status()  # Raise an exception for bad status codes
+        pokemon_data = response.json()
+        pokemon_names = [pokemon['name'] for pokemon in pokemon_data['results']]
+        cache.set('pokemon_names', pokemon_names)
+        current_app.logger.info(f"Successfully cached {len(pokemon_names)} Pokémon names")
+    except Exception as e:
+        current_app.logger.error(f"Error initializing pokemon names cache: {e}")
+        cache.set('pokemon_names', [])
+
+@cache.memoize(timeout=300)
+def get_all_pokemon_names():
+    """Get all cached Pokémon names."""
+    return cache.get('pokemon_names') or []
 
 def zip_types(type_list):
     """Helper function to zip types with their colors."""
