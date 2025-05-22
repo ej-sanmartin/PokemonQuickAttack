@@ -705,7 +705,7 @@ button[type="submit"]:hover, button[type="submit"]:focus {
     }
 
     .bmc-container iframe {
-        transform: scale(0.45);
+        transform: scale(0.35);
         transform-origin: center;
     }
 }
