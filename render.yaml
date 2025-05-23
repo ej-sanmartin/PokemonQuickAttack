@@ -14,4 +14,9 @@ services:
       - key: GUNICORN_MAX_REQUESTS
         value: "1000"
       - key: PYTHONPATH
-        value: "/opt/render/project/src:/opt/render/project/src/flaskr" 
+        value: "/opt/render/project/src:/opt/render/project/src/flaskr"
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: pk-adv-redis
+          property: connectionString 

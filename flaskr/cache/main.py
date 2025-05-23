@@ -6,14 +6,22 @@ from services.pokemon_reader_helper import get_pokemon_data
 from services.type_reader_helper import get_type_relationship
 from constants.type_colors import TYPE_COLORS
 from flask_caching import Cache
+import os
 
 cache = Cache()
 
 def init_cache(app):
     """Initialize cache with the Flask app."""
+    redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
     cache.init_app(app, config={
-        'CACHE_TYPE': 'SimpleCache',
-        'CACHE_DEFAULT_TIMEOUT': 300  # 5 minutes cache timeout
+        'CACHE_TYPE': 'redis',
+        'CACHE_REDIS_URL': redis_url,
+        'CACHE_DEFAULT_TIMEOUT': 300,  # 5 minutes cache timeout
+        'CACHE_OPTIONS': {
+            'socket_timeout': 5,
+            'socket_connect_timeout': 5,
+            'retry_on_timeout': True
+        }
     })
     with app.app_context():
         _init_pokemon_names_cache()
