@@ -15,3 +15,9 @@ build/
 
 .vscode/
 .DS_Store/
+
+# Environment variables
+.env
+.env.*
+flaskr/.env
+flaskr/.env.*

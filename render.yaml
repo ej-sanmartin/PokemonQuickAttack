@@ -15,8 +15,7 @@ services:
         value: "1000"
       - key: PYTHONPATH
         value: "/opt/render/project/src:/opt/render/project/src/flaskr"
-      - key: REDIS_URL
-        fromService:
-          type: redis
-          name: pk-adv-redis
-          property: connectionString 
+      - key: FLASK_APP
+        value: "flaskr"
+      - key: FLASK_ENV
+        value: "production" 
