@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 pokemonInput.value = name;
                 dropdown.classList.remove('show');
                 selectedIndex = -1;
+                pokemonInput.form.submit();
             });
             dropdown.appendChild(option);
         });
@@ -89,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     pokemonInput.value = options[selectedIndex].textContent;
                     dropdown.classList.remove('show');
                     selectedIndex = -1;
+                    pokemonInput.form.submit();
                 }
                 break;
             case 'Escape':

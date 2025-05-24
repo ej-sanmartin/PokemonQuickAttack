@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 typeInput.value = type;
                 dropdown.classList.remove('show');
                 selectedIndex = -1;
+                typeInput.form.submit();
             });
             dropdown.appendChild(option);
         });
@@ -85,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     typeInput.value = options[selectedIndex].textContent;
                     dropdown.classList.remove('show');
                     selectedIndex = -1;
+                    typeInput.form.submit();
                 }
                 break;
             case 'Escape':
