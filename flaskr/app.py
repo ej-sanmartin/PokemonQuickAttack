@@ -2,6 +2,7 @@
 
 from flask import Flask, request, render_template, redirect, url_for, session, flash
 from functools import wraps
+import os
 
 from constants.search_enum import Search
 from cache.main import (
@@ -10,7 +11,7 @@ from cache.main import (
 )
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'  # Required for sessions and flash messages
+app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key-placeholder')
 init_cache(app)
 
 def search_type_required(f):
