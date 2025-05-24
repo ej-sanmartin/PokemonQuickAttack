@@ -16,11 +16,13 @@ def init_cache(app):
     cache.init_app(app, config={
         'CACHE_TYPE': 'redis',
         'CACHE_REDIS_URL': redis_url,
-        'CACHE_DEFAULT_TIMEOUT': 300,  # 5 minutes cache timeout
+        'CACHE_DEFAULT_TIMEOUT': 604800,  # 1 week cache timeout
         'CACHE_OPTIONS': {
             'socket_timeout': 5,
             'socket_connect_timeout': 5,
-            'retry_on_timeout': True
+            'retry_on_timeout': True,
+            'persistence': True,  # Enable Redis persistence
+            'persistence_ttl': 604800  # Persist data for 1 week
         }
     })
     with app.app_context():
@@ -40,10 +42,19 @@ def _init_pokemon_names_cache():
         current_app.logger.error(f"Error initializing pokemon names cache: {e}")
         cache.set('pokemon_names', [])
 
-@cache.memoize(timeout=300)
+def _ensure_pokemon_names_cache():
+    """Ensure the Pokémon names cache is populated."""
+    pokemon_names = cache.get('pokemon_names')
+    if not pokemon_names:
+        current_app.logger.info("Pokemon names cache is empty, repopulating...")
+        _init_pokemon_names_cache()
+        pokemon_names = cache.get('pokemon_names')
+    return pokemon_names
+
+@cache.memoize(timeout=604800)  # 1 week timeout
 def get_all_pokemon_names():
     """Get all cached Pokémon names."""
-    return cache.get('pokemon_names') or []
+    return _ensure_pokemon_names_cache() or []
 
 def zip_types(type_list):
     """Helper function to zip types with their colors."""
