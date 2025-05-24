@@ -10,7 +10,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function filterPokemon(input) {
         const value = input.toLowerCase();
-        return window.pokemonNames.filter(name => name.includes(value));
+        const matches = window.pokemonNames.filter(name => name.includes(value));
+        
+        // Sort matches to prioritize prefix matches
+        return matches.sort((a, b) => {
+            const aStartsWith = a.toLowerCase().startsWith(value);
+            const bStartsWith = b.toLowerCase().startsWith(value);
+            
+            if (aStartsWith && !bStartsWith) return -1;
+            if (!aStartsWith && bStartsWith) return 1;
+            return a.localeCompare(b); // If both are prefix matches or both aren't, sort alphabetically
+        });
     }
 
     function showDropdown(filteredPokemon) {
