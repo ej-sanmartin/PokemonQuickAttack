@@ -9,10 +9,12 @@ from cache.main import (
     init_cache, get_cached_pokemon_data, get_cached_type_data,
     process_pokemon_data, process_type_data, get_all_pokemon_names
 )
+from utils.rate_limiter import init_rate_limiter
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-key-placeholder')
 init_cache(app)
+init_rate_limiter(app)
 
 def search_type_required(f):
     @wraps(f)
@@ -62,6 +64,7 @@ def change_search_type(search_type):
 
 @app.route("/pokemon")
 @search_type_required
+@app.limiter.limit("10 per minute")
 def get_pokemon():
     try:
         requested_pokemon = request.args.get('name', '')
@@ -82,6 +85,7 @@ def get_pokemon():
 
 @app.route("/type")
 @search_type_required
+@app.limiter.limit("10 per minute")
 def get_type():
     requested_type = request.args.get('name', '')
     if not requested_type:
