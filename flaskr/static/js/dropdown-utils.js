@@ -26,6 +26,43 @@ function createDropdown(config) {
 
     let selectedIndex = -1;
     let filteredItems = [];
+    let debounceTimer = null;
+    let submitTimer = null;
+    let isSubmitting = false;
+
+    /**
+     * Debounces a function call
+     * @param {Function} func Function to debounce
+     * @param {number} wait Time to wait in milliseconds
+     * @returns {Function} Debounced function
+     */
+    function debounce(func, wait) {
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(debounceTimer);
+                func(...args);
+            };
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(later, wait);
+        };
+    }
+
+    /**
+     * Debounces form submission
+     * @param {Event} e Event object
+     */
+    function debouncedSubmit(e) {
+        e.preventDefault();
+        if (isSubmitting) return;
+
+        isSubmitting = true;
+        clearTimeout(submitTimer);
+        
+        submitTimer = setTimeout(() => {
+            input.form.submit();
+            isSubmitting = false;
+        }, 500); // 500ms debounce for submissions
+    }
 
     function showDropdown(filteredItems) {
         dropdown.innerHTML = '';
@@ -42,7 +79,7 @@ function createDropdown(config) {
                 input.value = item;
                 dropdown.classList.remove('show');
                 selectedIndex = -1;
-                input.form.submit();
+                debouncedSubmit(new Event('submit'));
             });
             dropdown.appendChild(option);
         });
@@ -60,8 +97,7 @@ function createDropdown(config) {
         }
     }
 
-    input.addEventListener('input', (e) => {
-        const value = e.target.value;
+    const debouncedFilter = debounce((value) => {
         if (value.length > 0) {
             filteredItems = filterFunction(value);
             if (sortFunction) {
@@ -73,12 +109,17 @@ function createDropdown(config) {
             dropdown.classList.remove('show');
             selectedIndex = -1;
         }
+    }, 300); // 300ms debounce delay
+
+    input.addEventListener('input', (e) => {
+        const value = e.target.value;
+        debouncedFilter(value);
     });
 
     input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && input.value.trim()) {
             e.preventDefault();
-            input.form.submit();
+            debouncedSubmit(e);
             return;
         }
 
@@ -103,7 +144,7 @@ function createDropdown(config) {
                     input.value = options[selectedIndex].textContent;
                     dropdown.classList.remove('show');
                     selectedIndex = -1;
-                    input.form.submit();
+                    debouncedSubmit(e);
                 }
                 break;
             case 'Escape':
@@ -113,6 +154,9 @@ function createDropdown(config) {
                 break;
         }
     });
+
+    // Add form submit handler
+    input.form.addEventListener('submit', debouncedSubmit);
 
     document.addEventListener('click', (e) => {
         if (!input.contains(e.target) && !dropdown.contains(e.target)) {
